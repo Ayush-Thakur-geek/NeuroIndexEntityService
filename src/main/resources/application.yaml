@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: entity
+  datasource:
+    url: jdbc:postgresql://localhost:5432/NeuroIndex
+    username: postgres
+    password: Thakur@7
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    generate-ddl: true
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        enable_lazy_load_no_trans: true
+
+  sql:
+    init:
+      mode: never
