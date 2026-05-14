@@ -17,6 +17,9 @@ public class AffiliatedEmail extends BaseModel {
     @JoinColumn(name = "llm_id")
     private LLm llm;
 
+    @Column(nullable = false)
+    private String uuid;
+
     private String email;
 
     @Column(name = "is_pro")
@@ -25,6 +28,6 @@ public class AffiliatedEmail extends BaseModel {
     @Column(name = "normal_conversation_doc_link")
     private String normalConversationDocLink;
 
-    @OneToMany(mappedBy = "affiliatedEmail", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "affiliatedEmail", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ProjectConversationDoc> projectConversationDocs;
 }
