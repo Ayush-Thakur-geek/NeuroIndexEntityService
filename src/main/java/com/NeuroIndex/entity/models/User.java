@@ -18,8 +18,11 @@ public class User extends BaseModel {
     private String username;
 
     @Column(nullable = false)
+    private String email;
+
+    @Column(nullable = false)
     private String password;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<LLm> llms;
 }

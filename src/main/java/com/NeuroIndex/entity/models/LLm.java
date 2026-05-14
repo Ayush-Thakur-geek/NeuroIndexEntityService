@@ -22,6 +22,6 @@ public class LLm extends BaseModel {
     @Column(nullable = false)
     private LlmTypes provider;
 
-    @OneToMany(mappedBy = "llm", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "llm", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<AffiliatedEmail> affiliatedEmails;
 }
