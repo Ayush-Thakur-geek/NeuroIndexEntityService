@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.NeuroIndex'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.2-SNAPSHOT'
 
 java {
     toolchain {
@@ -24,37 +24,25 @@ dependencyManagement {
 }
 
 dependencies {
+
     api 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    implementation 'com.pgvector:pgvector:0.1.6'
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
-    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-
-    runtimeOnly 'org.postgresql:postgresql'
-
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
-    testCompileOnly 'org.projectlombok:lombok'
-    testAnnotationProcessor 'org.projectlombok:lombok'
 }
 
 publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
-
-            versionMapping {
-                usage('java-api') {
-                    fromResolutionResult()
-                }
-                usage('java-runtime') {
-                    fromResolutionResult()
-                }
-            }
         }
     }
 }
+
 tasks.named('test') {
     useJUnitPlatform()
 }

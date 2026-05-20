@@ -2,11 +2,12 @@ spring:
   application:
     name: entity
   datasource:
-    url: jdbc:postgresql://localhost:5432/NeuroIndex
+    url: jdbc:postgresql://localhost:5433/neuroindex
     username: postgres
     password: Thakur@7
     driver-class-name: org.postgresql.Driver
   jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: update
     generate-ddl: true
@@ -15,6 +16,7 @@ spring:
       hibernate:
         format_sql: true
         enable_lazy_load_no_trans: true
+
 
   sql:
     init:
