@@ -1,10 +1,7 @@
 package com.NeuroIndex.entity.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.Instant;
 import java.util.List;
@@ -14,6 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 public class Message extends BaseModel{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "conversation_id")
@@ -22,6 +20,12 @@ public class Message extends BaseModel{
     private Integer sequence_number;
 
     private String role;
+
+    @Column(columnDefinition = "TEXT")
+    private String prompt;
+
+    @Column(columnDefinition = "TEXT")
+    private String rawJsonContent;
 
     @Column(columnDefinition = "TEXT")
     private String content;
@@ -33,4 +37,5 @@ public class Message extends BaseModel{
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "message")
     private List<SemanticFragment> semanticFragments;
+
 }

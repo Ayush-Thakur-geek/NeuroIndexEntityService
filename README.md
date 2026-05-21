@@ -1,7 +1,7 @@
 # Db Design
 ![Schema Design](./src/main/resources/static/images/Neuro%20Index-2.png)
 
-this was db design was made on dbdiagram.io, use the below code to regenerate the design
+this db design was made on dbdiagram.io, use the below code to regenerate the design
 
 ```
 Table users {
