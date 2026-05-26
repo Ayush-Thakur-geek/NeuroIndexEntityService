@@ -25,9 +25,9 @@ public class AffiliatedEmail extends BaseModel {
     @Column(name = "is_pro")
     private boolean isPro;
 
-    @Column(name = "normal_conversation_doc_link")
-    private String normalConversationDocLink;
+    @Column(name = "conversation_doc_link")
+    private String ConversationDocLink;
 
-    @OneToMany(mappedBy = "affiliatedEmail", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<ProjectConversationDoc> projectConversationDocs;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "affiliatedEmail")
+    private List<Conversation> conversations;
 }
