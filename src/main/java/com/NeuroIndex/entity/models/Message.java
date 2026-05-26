@@ -1,7 +1,10 @@
 package com.NeuroIndex.entity.models;
 
+import com.NeuroIndex.entity.domainObjects.SemanticUnit;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.time.Instant;
 import java.util.List;
@@ -21,14 +24,15 @@ public class Message extends BaseModel{
 
     private String role;
 
-    @Column(columnDefinition = "TEXT")
-    private String prompt;
+//    @Column(columnDefinition = "TEXT")
+//    private String prompt;
 
     @Column(columnDefinition = "TEXT")
     private String rawJsonContent;
 
-    @Column(columnDefinition = "TEXT")
-    private String content;
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(columnDefinition = "jsonb")
+    private List<SemanticUnit> content;
 
     private String hash;
 
