@@ -1,9 +1,13 @@
 package com.NeuroIndex.entity.models;
 
+import com.NeuroIndex.entity.typeConversions.PGvectorType;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Type;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -19,13 +23,15 @@ public class SemanticFragment extends BaseModel {
 
     private Long userId;
 
-    private Integer fragment_order;
+    @Column(name = "fragment_order")
+    private Integer fragmentOrder;
 
     @Column(columnDefinition = "TEXT")
     private String text;
 
-    @Column(columnDefinition = "TEXT")
-    private String embedding;
+    @Column(columnDefinition = "vector(768)")
+    @Type(PGvectorType.class)
+    private float[] embedding;
 
     private Float confidenceScore;
 
@@ -40,7 +46,26 @@ public class SemanticFragment extends BaseModel {
     @Column(name = "keyword")
     private List<String> keywords;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "semantic_node_id")
-    private SemanticNode semanticNode;
+    @Column(name = "noun_phrase")
+    private List<String> nounPhrases;
+
+    @OneToMany(
+            mappedBy = "fragment",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @Builder.Default
+    @ToString.Exclude
+    private Set<SemanticFragmentNode> nodeMappings = new HashSet<>();
+
+    public void addNodeMapping(SemanticFragmentNode mapping) {
+        nodeMappings.add(mapping);
+        mapping.setFragment(this);
+    }
+
+    public void removeNodeMapping(SemanticFragmentNode mapping) {
+        nodeMappings.remove(mapping);
+        mapping.setFragment(null);
+    }
 }
