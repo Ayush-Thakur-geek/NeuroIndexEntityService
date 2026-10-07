@@ -36,7 +36,7 @@ public class SemanticNode extends BaseModel {
     @Column(name = "user_id", nullable = false)
     private Long userId;
 
-    @Column(nullable = false, length = 500)
+    @Column(name = "label" ,nullable = false, length = 500)
     private String label;
 
     /**
