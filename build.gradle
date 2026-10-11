@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.NeuroIndex'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.4-SNAPSHOT'
 
 java {
     toolchain {
@@ -24,37 +24,30 @@ dependencyManagement {
 }
 
 dependencies {
+
     api 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    implementation 'org.jboss.logging:jboss-logging'
+    implementation 'com.pgvector:pgvector:0.1.6'
+    // Source: https://mvnrepository.com/artifact/io.hypersistence/hypersistence-utils-hibernate-63
+    implementation("io.hypersistence:hypersistence-utils-hibernate-63:3.15.2")
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
-    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-
-    runtimeOnly 'org.postgresql:postgresql'
-
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
-    testCompileOnly 'org.projectlombok:lombok'
-    testAnnotationProcessor 'org.projectlombok:lombok'
 }
 
 publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
-
-            versionMapping {
-                usage('java-api') {
-                    fromResolutionResult()
-                }
-                usage('java-runtime') {
-                    fromResolutionResult()
-                }
-            }
         }
     }
 }
+
 tasks.named('test') {
     useJUnitPlatform()
+    failOnNoDiscoveredTests = false
 }
